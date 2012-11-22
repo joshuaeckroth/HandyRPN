@@ -22,3 +22,6 @@ HEADERS  += rpnwidget.h \
     rpnlineedit.h
 
 FORMS    += rpnwidget.ui
+
+RESOURCES += \
+    resources.qrc
