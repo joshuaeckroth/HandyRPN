@@ -13,6 +13,9 @@ public:
     void doAction(QString);
     void calcAdd();
     void calcSubtract();
+    void calcDivide();
+    void calcMultiply();
+    void calcFactorial();
     QString printStack() const;
 
 private:

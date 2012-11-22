@@ -17,6 +17,9 @@ bool RPNCalc::isActionable(QString s) const
 {
     if(s == "+") { return true; }
     if(s == "-") { return true; }
+    if(s == "/") { return true; }
+    if(s == "*") { return true; }
+    if(s == "!") { return true; }
     else { return false; }
 }
 
@@ -24,6 +27,9 @@ void RPNCalc::doAction(QString s)
 {
     if(s == "+") { calcAdd(); }
     else if(s == "-") { calcSubtract(); }
+    else if(s == "/") { calcDivide(); }
+    else if(s == "*") { calcMultiply(); }
+    else if(s == "!") { calcFactorial(); }
     else if(s == "dup")
     {
         if(!stack->isEmpty())
@@ -51,7 +57,7 @@ void RPNCalc::calcAdd()
     {
         double val1 = stack->pop();
         double val2 = stack->pop();
-        stack->push(val1 + val2);
+        stack->push(val2 + val1);
     }
 }
 
@@ -61,7 +67,42 @@ void RPNCalc::calcSubtract()
     {
         double val1 = stack->pop();
         double val2 = stack->pop();
-        stack->push(val1 - val2);
+        stack->push(val2 - val1);
+    }
+}
+
+void RPNCalc::calcDivide()
+{
+    if(stack->size() >= 2)
+    {
+        double val1 = stack->pop();
+        double val2 = stack->pop();
+        stack->push(val2 / val1);
+    }
+}
+
+void RPNCalc::calcMultiply()
+{
+    if(stack->size() >= 2)
+    {
+        double val1 = stack->pop();
+        double val2 = stack->pop();
+        stack->push(val2 * val1);
+    }
+}
+
+void RPNCalc::calcFactorial()
+{
+    if(stack->size() >= 1)
+    {
+        double result = 1.0;
+        double val = stack->pop();
+        while(val >= 1.0)
+        {
+            result *= val;
+            val -= 1.0;
+        }
+        stack->push(result);
     }
 }
 
