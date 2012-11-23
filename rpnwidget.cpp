@@ -16,6 +16,8 @@ RPNWidget::RPNWidget(QWidget *parent) :
 
     calc = new RPNCalc;
 
+    history = new QStack<QString>;
+
     ui->inputbox->setFocus();
 }
 
@@ -30,6 +32,7 @@ void RPNWidget::textChanged(QString s)
     if(calc->isActionable(s))
     {
         calc->doAction(s);
+        history->push(s);
         updateOutput();
     }
 }
@@ -39,11 +42,13 @@ void RPNWidget::specialKey(Qt::Key key)
     if(key == Qt::Key_Return)
     {
         calc->doAction(ui->inputbox->text());
+        history->push(ui->inputbox->text());
         updateOutput();
     }
     if(key == Qt::Key_Backspace)
     {
         calc->doAction("drop");
+        history->push("drop");
         updateOutput();
     }
 }
@@ -55,4 +60,11 @@ void RPNWidget::updateOutput()
     QTextCursor c = ui->outputview->textCursor();
     c.movePosition(QTextCursor::End);
     ui->outputview->setTextCursor(c);
+
+    QString histStr;
+    for(QStack<QString>::const_iterator it = history->begin(); it != history->end(); ++it) {
+        histStr += *it;
+        histStr += "\n";
+    }
+    ui->history->setText(histStr);
 }

@@ -37,10 +37,10 @@
         <x>0</x>
         <y>0</y>
         <width>382</width>
-        <height>250</height>
+        <height>245</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="margin">
         <number>0</number>
        </property>
@@ -49,11 +49,21 @@
          <property name="font">
           <font>
            <family>Source Code Pro</family>
-           <pointsize>12</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextBrowser" name="history">
+         <property name="font">
+          <font>
+           <family>Source Code Pro</family>
+           <pointsize>16</pointsize>
+          </font>
          </property>
         </widget>
        </item>
@@ -66,7 +76,7 @@
      <property name="font">
       <font>
        <family>Source Code Pro</family>
-       <pointsize>12</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
     </widget>

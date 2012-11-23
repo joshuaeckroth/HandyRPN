@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include <QStack>
 
 #include "rpncalc.h"
 
@@ -25,6 +26,7 @@ private slots:
 private:
     Ui::RPNWidget *ui;
     RPNCalc *calc;
+    QStack<QString> *history;
 
     void updateOutput();
 };
