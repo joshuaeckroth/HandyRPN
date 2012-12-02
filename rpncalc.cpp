@@ -3,6 +3,9 @@
 #include <QString>
 #include <QDebug>
 
+#include <cmath>
+using namespace std;
+
 RPNCalc::RPNCalc()
 {
     stack = new QStack<double>;
@@ -20,6 +23,7 @@ bool RPNCalc::isActionable(QString s) const
     if(s == "/") { return true; }
     if(s == "*") { return true; }
     if(s == "!") { return true; }
+    if(s == "^") { return true; }
     else { return false; }
 }
 
@@ -30,6 +34,7 @@ void RPNCalc::doAction(QString s)
     else if(s == "/") { calcDivide(); }
     else if(s == "*") { calcMultiply(); }
     else if(s == "!") { calcFactorial(); }
+    else if(s == "^") { calcPower(); }
     else if(s == "dup")
     {
         if(!stack->isEmpty())
@@ -103,6 +108,16 @@ void RPNCalc::calcFactorial()
             val -= 1.0;
         }
         stack->push(result);
+    }
+}
+
+void RPNCalc::calcPower()
+{
+    if(stack->size() >= 2)
+    {
+        double val1 = stack->pop();
+        double val2 = stack->pop();
+        stack->push(pow(val2, val1));
     }
 }
 
