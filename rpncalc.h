@@ -17,6 +17,9 @@ public:
     void calcMultiply();
     void calcFactorial();
     void calcPower();
+    void calcLog();
+    void calcLn();
+    void calcLog10();
     QString printStack() const;
 
 private:

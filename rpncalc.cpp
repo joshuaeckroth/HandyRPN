@@ -35,6 +35,9 @@ void RPNCalc::doAction(QString s)
     else if(s == "*") { calcMultiply(); }
     else if(s == "!") { calcFactorial(); }
     else if(s == "^") { calcPower(); }
+    else if(s == "log") { calcLog(); }
+    else if(s == "ln") { calcLn(); }
+    else if(s == "log10") { calcLog10(); }
     else if(s == "dup")
     {
         if(!stack->isEmpty())
@@ -118,6 +121,33 @@ void RPNCalc::calcPower()
         double val1 = stack->pop();
         double val2 = stack->pop();
         stack->push(pow(val2, val1));
+    }
+}
+
+void RPNCalc::calcLog()
+{
+    if(stack->size() >= 1)
+    {
+        double val = stack->pop();
+        stack->push(log2(val));
+    }
+}
+
+void RPNCalc::calcLn()
+{
+    if(stack->size() >= 1)
+    {
+        double val = stack->pop();
+        stack->push(log(val));
+    }
+}
+
+void RPNCalc::calcLog10()
+{
+    if(stack->size() >= 1)
+    {
+        double val = stack->pop();
+        stack->push(log10(val));
     }
 }
 
