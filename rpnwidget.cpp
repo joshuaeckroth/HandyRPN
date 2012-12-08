@@ -67,4 +67,8 @@ void RPNWidget::updateOutput()
         histStr += "\n";
     }
     ui->history->setText(histStr);
+
+    c = ui->history->textCursor();
+    c.movePosition(QTextCursor::End);
+    ui->history->setTextCursor(c);
 }
