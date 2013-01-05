@@ -38,6 +38,9 @@ void RPNCalc::doAction(QString s)
     else if(s == "log") { calcLog(); }
     else if(s == "ln") { calcLn(); }
     else if(s == "log10") { calcLog10(); }
+    else if(s == "sin") { calcSin(); }
+    else if(s == "cos") { calcCos(); }
+    else if(s == "tan") { calcTan(); }
     else if(s == "dup")
     {
         if(!stack->isEmpty())
@@ -148,6 +151,33 @@ void RPNCalc::calcLog10()
     {
         double val = stack->pop();
         stack->push(log10(val));
+    }
+}
+
+void RPNCalc::calcSin()
+{
+    if(stack->size() >= 1)
+    {
+        double val = stack->pop();
+        stack->push(sin(val));
+    }
+}
+
+void RPNCalc::calcCos()
+{
+    if(stack->size() >= 1)
+    {
+        double val = stack->pop();
+        stack->push(cos(val));
+    }
+}
+
+void RPNCalc::calcTan()
+{
+    if(stack->size() >= 1)
+    {
+        double val = stack->pop();
+        stack->push(tan(val));
     }
 }
 

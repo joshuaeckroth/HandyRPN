@@ -20,6 +20,9 @@ public:
     void calcLog();
     void calcLn();
     void calcLog10();
+    void calcSin();
+    void calcCos();
+    void calcTan();
     QString printStack() const;
 
 private:
