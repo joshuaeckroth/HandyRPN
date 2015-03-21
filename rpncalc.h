@@ -26,6 +26,9 @@ public:
     QString printStack() const;
 
 private:
+    enum Format { FORMAT_FLOAT, FORMAT_HEX, FORMAT_OCTAL,
+                  FORMAT_BINARY, FORMAT_INT };
+    Format curFormat;
     QStack<double> *stack;
 };
 

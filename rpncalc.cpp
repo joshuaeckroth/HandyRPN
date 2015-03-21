@@ -8,6 +8,7 @@ using namespace std;
 
 RPNCalc::RPNCalc()
 {
+    curFormat = FORMAT_FLOAT;
     stack = new QStack<double>;
 }
 
@@ -51,9 +52,57 @@ void RPNCalc::doAction(QString s)
         if(!stack->isEmpty())
             stack->pop();
     }
+    else if(s == "swap")
+    {
+        if(stack->size() >= 2)
+        {
+            double v1 = stack->pop();
+            double v2 = stack->pop();
+            stack->push(v1);
+            stack->push(v2);
+        }
+    }
+    else if(s == "hex")
+    {
+        curFormat = FORMAT_HEX;
+    }
+    else if(s == "octal")
+    {
+        curFormat = FORMAT_OCTAL;
+    }
+    else if(s == "float")
+    {
+        curFormat = FORMAT_FLOAT;
+    }
+    else if(s == "int")
+    {
+        curFormat = FORMAT_INT;
+    }
+    else if(s == "binary")
+    {
+        curFormat = FORMAT_BINARY;
+    }
     else {
-        bool ok;
-        double val = s.toDouble(&ok);
+        bool ok = false;
+        double val;
+        switch(curFormat)
+        {
+        case FORMAT_FLOAT:
+            val = s.toDouble(&ok);
+            break;
+        case FORMAT_INT:
+            val = (double)s.toInt(&ok);
+            break;
+        case FORMAT_BINARY:
+            val = (double)s.toInt(&ok, 2);
+            break;
+        case FORMAT_HEX:
+            val = (double)s.toInt(&ok, 16);
+            break;
+        case FORMAT_OCTAL:
+            val = (double)s.toInt(&ok, 8);
+            break;
+        }
         if(ok) {
             stack->push(val);
         } else {
@@ -184,9 +233,32 @@ void RPNCalc::calcTan()
 QString RPNCalc::printStack() const
 {
     QString s;
+    QTextStream ts(&s);
     for(int i = 0; i < stack->size(); ++i) {
-        s += QString::number(stack->at(i));
-        s += "\n";
+        switch(curFormat)
+        {
+        case FORMAT_HEX:
+            ts.setIntegerBase(16);
+            ts << (int)(stack->at(i));
+            break;
+        case FORMAT_OCTAL:
+            ts.setIntegerBase(8);
+            ts << (int)(stack->at(i));
+            break;
+        case FORMAT_BINARY:
+            ts.setIntegerBase(2);
+            ts << (int)(stack->at(i));
+            break;
+        case FORMAT_INT:
+            ts.setIntegerBase(10);
+            ts << (int)(stack->at(i));
+            break;
+        case FORMAT_FLOAT:
+            ts.setIntegerBase(0);
+            ts << stack->at(i);
+            break;
+        }
+        ts << "\n";
     }
     return s;
 }
